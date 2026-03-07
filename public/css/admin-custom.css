@@ -1,0 +1,312 @@
+/* ============================================
+   admin-custom.css - General Admin UI Enhancements
+   MAN 1 Lombok Timur - Admin Panel
+   ============================================ */
+
+:root {
+    --primary-main: #166534;
+    --primary-light: #15803d;
+    --primary-dark: #0a3d1f;
+    --primary-glow: rgba(22, 101, 52, 0.12);
+}
+
+/* Global Typography */
+body {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Sidebar Styling */
+.fi-sidebar {
+    background: #ffffff !important;
+    border-right: 1px solid #eef2f6 !important;
+}
+
+.fi-sidebar-item-active {
+    background-color: var(--primary-glow) !important;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-label {
+    color: var(--primary-main) !important;
+    font-weight: 700 !important;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    color: var(--primary-main) !important;
+}
+
+/* Sidebar Logo */
+.sidebar-brand .logo-icon-box {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 10px;
+    padding: 0.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-brand .brand-name-main {
+    color: #1e293b;
+}
+
+.sidebar-brand .brand-name-sub {
+    color: #64748b;
+}
+
+/* Header/Topnav */
+.fi-topbar {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid #eef2f6 !important;
+}
+
+/* Widget Cards */
+.fi-wi-stats-overview-stat {
+    border-radius: 20px !important;
+    border: 1px solid #eef2f6 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Buttons */
+.fi-btn {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+/* Inputs */
+.fi-input-wrp {
+    border-radius: 10px !important;
+}
+
+/* Tables */
+.fi-ta-ctn {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    border: 1px solid #eef2f6 !important;
+}
+
+/* ============================================
+   Premium Split-Screen Login
+   ============================================ */
+
+/* Main Layout Transformation */
+.fi-simple-layout {
+    display: grid !important;
+    grid-template-columns: 1fr 0.8fr !important;
+    /* Slightly more balanced ratio */
+    min-height: 100vh !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+}
+
+/* Decorative Left Panel */
+.fi-simple-layout::before {
+    content: '' !important;
+    background: linear-gradient(165deg, #064e3b 0%, #065f46 45%, #047857 100%) !important;
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    position: relative !important;
+    box-shadow: inset -30px 0 60px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Add an active glow to the left panel */
+.fi-simple-layout::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -20% !important;
+    width: 100% !important;
+    height: 200% !important;
+    background: radial-gradient(circle at center, rgba(52, 211, 153, 0.1) 0%, transparent 70%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    animation: slow-glow 15s infinite alternate ease-in-out !important;
+}
+
+@keyframes slow-glow {
+    0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(10%) rotate(5deg);
+        opacity: 0.8;
+    }
+}
+
+/* Position Logo Branding (Fixed to the Left) */
+.login-brand-container {
+    display: none !important;
+    /* Hidden by default (mobile/small screens) */
+}
+
+/* Hide the Original Filament Logo placement on login page */
+.fi-logo {
+    display: none !important;
+}
+
+/* Right Panel (Form Container) */
+.fi-simple-main-ctn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2rem !important;
+    background: white !important;
+    min-height: 100vh !important;
+}
+
+/* Large Desktop Split-Screen - Re-enable branding and shift form */
+@media (min-width: 1201px) {
+    .login-brand-container {
+        display: flex !important;
+        /* Fixed branding only on large desktop */
+    }
+
+    .fi-simple-main-ctn {
+        padding-left: 55vw !important;
+        /* Push form to the right half of the split */
+        justify-content: center !important;
+        width: 100% !important;
+        background: white !important;
+    }
+
+    .fi-simple-main {
+        width: 100% !important;
+        max-width: 440px !important;
+    }
+}
+
+.fi-simple-main {
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    padding: 0 !important;
+}
+
+/* Header & Typography */
+.fi-simple-header {
+    margin-top: 0 !important;
+    margin-bottom: 3.5rem !important;
+    text-align: left !important;
+    border: none !important;
+}
+
+.fi-simple-header-heading {
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    font-size: 2.75rem !important;
+    letter-spacing: -0.06em !important;
+    line-height: 1.1 !important;
+}
+
+/* Form Styling Refinements */
+.fi-simple-form {
+    background: transparent !important;
+}
+
+/* Premium Inputs */
+.fi-input-wrp {
+    background: #f1f5f9 !important;
+    border: 2px solid transparent !important;
+    border-radius: 18px !important;
+    padding: 0.4rem !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+}
+
+.fi-input-wrp:focus-within {
+    border-color: #059669 !important;
+    box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.1) !important;
+    background: white !important;
+    transform: translateY(-2px);
+}
+
+/* Premium Button */
+.fi-btn {
+    background: linear-gradient(135deg, #065f46 0%, #059669 100%) !important;
+    border-radius: 18px !important;
+    padding: 1.25rem !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 12px 24px -6px rgba(5, 150, 105, 0.5) !important;
+    transition: all 0.4s ease !important;
+    margin-top: 1rem !important;
+}
+
+.fi-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 40px -8px rgba(5, 150, 105, 0.6) !important;
+}
+
+.fi-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Back Link */
+.back-link-container {
+    margin-top: 4rem !important;
+    text-align: left !important;
+}
+
+.back-link-container a {
+    color: #cbd5e1 !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.back-link-container a:hover {
+    color: #059669 !important;
+    transform: translateX(-6px);
+}
+
+/* Responsive (Mobile/Tablet Fix) */
+@media (max-width: 1200px) {
+    .fi-simple-layout {
+        grid-template-columns: 1fr !important;
+        overflow-y: auto !important;
+    }
+
+    .fi-simple-layout::before,
+    .fi-simple-layout::after {
+        display: none !important;
+    }
+
+    .fi-logo {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        background: linear-gradient(135deg, #064e3b 0%, #065f46 100%) !important;
+        padding: 5rem 2rem !important;
+        margin-bottom: -2rem !important;
+        max-width: 100% !important;
+    }
+
+    .fi-simple-main-ctn {
+        padding: 4rem 2rem !important;
+        background: #ffffff !important;
+        border-radius: 40px 40px 0 0 !important;
+        margin-top: -40px !important;
+    }
+
+    .fi-simple-header {
+        text-align: center !important;
+    }
+
+    .back-link-container {
+        text-align: center !important;
+    }
+}

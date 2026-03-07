@@ -11,7 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->trustProxies(at: '*');
+        $middleware->redirectGuestsTo(function ($request) {
+            if ($request->is('ppdb/*')) {
+                return route('ppdb.daftar');
+            }
+            return route('filament.admin.auth.login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

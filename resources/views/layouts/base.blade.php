@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="@yield('description', 'Website Resmi Madrasah Aliyah Negeri 1 Selong – Madrasah unggul, religius, berprestasi, dan berbasis teknologi.')">
-    <title>@yield('title', 'MAN 1 Selong')</title>
+    <meta name="description" content="@yield('description', 'Website Resmi Madrasah Aliyah Negeri 1 Lombok Timur – Madrasah unggul, religius, berprestasi, dan berbasis teknologi.')">
+    <title>@yield('title', 'MAN 1 Lombok Timur')</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ $school_setting->logo ? asset('storage/'.$school_setting->logo) : asset('images/logo.png') }}" type="image/png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,12 +74,12 @@
                    active:scale-[0.97] cursor-pointer inline-flex items-center justify-center gap-2;
         }
         .nav-link {
-            @apply text-neutral/70 hover:text-primary font-medium text-[13px] tracking-wide
-                   transition-colors px-3 py-2 rounded-lg hover:bg-primary-light/60;
+            @apply text-neutral/70 hover:text-primary font-medium text-[14px] tracking-wide
+                   transition-colors px-4 py-2 rounded-lg hover:bg-primary-light/60;
         }
         .nav-active {
-            @apply text-primary bg-primary-light font-semibold text-[13px] tracking-wide
-                   px-3 py-2 rounded-lg;
+            @apply text-primary bg-primary-light font-semibold text-[14px] tracking-wide
+                   px-4 py-2 rounded-lg;
         }
         .section-badge {
             @apply inline-flex items-center gap-2 bg-primary-light text-primary
@@ -91,6 +91,14 @@
         .section-desc {
             @apply text-neutral-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto;
         }
+
+        /* Custom Prose for RichEditor content */
+        .prose-content ul { @apply list-disc pl-5 mb-4 space-y-2; }
+        .prose-content ol { @apply list-decimal pl-5 mb-4 space-y-2; }
+        .prose-content p { @apply mb-4 leading-relaxed; }
+        .prose-content strong { @apply font-bold text-neutral; }
+        .prose-content h2 { @apply text-2xl font-bold mb-4 mt-8; }
+        .prose-content h3 { @apply text-xl font-bold mb-3 mt-6; }
     </style>
 </head>
 

@@ -1,5 +1,5 @@
 {{-- ═══════════════════════════════════════════════════════
-     NAVBAR – MAN 1 Selong
+     NAVBAR – MAN 1 Lombok Timur
      Sticky, clean, professional. Desktop horizontal / Mobile slide-down.
      Uses Alpine.js for dropdown & mobile toggle.
 ═══════════════════════════════════════════════════════ --}}
@@ -11,16 +11,16 @@
 
         {{-- ── Logo ── --}}
         <a href="/" class="flex items-center gap-2.5 flex-shrink-0">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo MAN 1 Selong" class="h-10 w-auto">
+            <img src="{{ $school_setting->logo ? asset('storage/'.$school_setting->logo) : asset('images/logo.png') }}" alt="Logo {{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}" class="h-10 w-auto">
             <div class="hidden sm:block leading-tight">
-                <span class="block text-primary font-extrabold text-sm tracking-tight">MAN 1 Selong</span>
-                <span class="block text-neutral-light text-[10px] font-semibold tracking-widest uppercase">Lombok Timur</span>
+                <span class="block text-primary font-extrabold text-sm tracking-tight text-nowrap">{{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}</span>
+                <span class="block text-neutral-light text-[10px] font-semibold tracking-widest uppercase">{{ $school_setting->school_alias ?: 'Kemenag Lotim' }}</span>
             </div>
         </a>
 
         {{-- ── Desktop Navigation ── --}}
-        <nav class="hidden lg:flex items-center gap-1">
-            <a href="/" class="nav-active">Beranda</a>
+        <nav class="hidden lg:flex items-center gap-4">
+            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-active' : 'nav-link' }}">Beranda</a>
 
             {{-- Profil dropdown --}}
             <div class="relative" x-data="{ open: false }"
@@ -40,15 +40,16 @@
                      x-transition:leave="transition ease-in duration-100"
                      x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                      class="absolute top-full left-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-border py-1.5 z-50">
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Tentang Sekolah</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Visi & Misi</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Sejarah</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Struktur Organisasi</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Guru & Tenaga Pendidik</a>
+                    <a href="{{ route('profil') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Tentang Sekolah</a>
+                    <a href="{{ route('profil.visi-misi') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Visi & Misi</a>
+                    <a href="{{ route('profil.sambutan') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Sambutan Kepala</a>
+                    <a href="{{ route('profil.statistik') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Statistik</a>
+                    <a href="{{ route('profil.direktori') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Direktori Guru</a>
+                    <a href="{{ route('kegiatan') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Program Unggulan</a>
                 </div>
             </div>
 
-            <a href="#berita" class="nav-link">Berita</a>
+            <a href="{{ route('berita') }}" class="{{ request()->routeIs('berita') ? 'nav-active' : 'nav-link' }}">Berita</a>
 
             {{-- Kegiatan dropdown --}}
             <div class="relative" x-data="{ open: false }"
@@ -68,20 +69,20 @@
                      x-transition:leave="transition ease-in duration-100"
                      x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                      class="absolute top-full left-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-border py-1.5 z-50">
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Ekstrakurikuler</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Prestasi</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Agenda Sekolah</a>
+                    <a href="{{ route('kegiatan') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Ekstrakurikuler</a>
+                    <a href="{{ route('prestasi') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Prestasi</a>
+                    <a href="{{ route('agenda') }}" class="block px-4 py-2 text-sm text-neutral/70 hover:text-primary hover:bg-primary-light/50 transition font-medium">Agenda Sekolah</a>
                 </div>
             </div>
 
-            <a href="#galeri" class="nav-link">Galeri</a>
-            <a href="#kontak" class="nav-link">Kontak</a>
+            <a href="{{ route('galeri') }}" class="{{ request()->routeIs('galeri') ? 'nav-active' : 'nav-link' }}">Galeri</a>
+            <a href="{{ route('kontak') }}" class="{{ request()->routeIs('kontak') ? 'nav-active' : 'nav-link' }}">Kontak</a>
         </nav>
 
         {{-- ── Right side actions ── --}}
         <div class="flex items-center gap-2">
-            <a href="#ppdb" class="hidden lg:inline-flex btn-primary !py-2 !px-5 !text-xs !font-bold !tracking-wider !uppercase">
-                PPDB 2026
+            <a href="{{ route('ppdb.home') }}" class="hidden lg:inline-flex btn-primary !py-2 !px-5 !text-xs !font-bold !tracking-wider !uppercase text-nowrap">
+                PPDB {{ $school_setting->ppdb_year ? explode('/', $school_setting->ppdb_year)[0] : '2026' }}
             </a>
 
             {{-- Mobile hamburger --}}
@@ -106,7 +107,7 @@
          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 -translate-y-2"
          class="lg:hidden border-t border-border bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-4 space-y-1">
-            <a href="/" class="block px-3 py-2.5 rounded-lg text-primary bg-primary-light font-semibold text-sm">Beranda</a>
+            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-primary bg-primary-light font-semibold' : 'text-neutral/70 hover:bg-light font-medium' }} block px-3 py-2.5 rounded-lg text-sm">Beranda</a>
 
             {{-- Profil accordion --}}
             <div x-data="{ sub: false }">
@@ -118,20 +119,21 @@
                     </svg>
                 </button>
                 <div x-show="sub" x-cloak x-transition class="pl-5 space-y-0.5 mt-0.5">
-                    <a href="#" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Tentang Sekolah</a>
-                    <a href="#" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Visi & Misi</a>
-                    <a href="#" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Sejarah</a>
-                    <a href="#" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Guru & Tenaga Pendidik</a>
+                    <a href="{{ route('profil') }}" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Tentang Sekolah</a>
+                    <a href="{{ route('profil.visi-misi') }}" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Visi & Misi</a>
+                    <a href="{{ route('profil.sambutan') }}" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Sambutan Kepala Madrasah</a>
+                    <a href="{{ route('profil.statistik') }}" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Statistik</a>
+                    <a href="{{ route('profil.direktori') }}" class="block px-3 py-2 text-sm text-neutral-light hover:text-primary transition">Direktori Guru</a>
                 </div>
             </div>
 
-            <a href="#berita" class="block px-3 py-2.5 rounded-lg text-neutral/70 hover:bg-light font-medium text-sm">Berita</a>
-            <a href="#" class="block px-3 py-2.5 rounded-lg text-neutral/70 hover:bg-light font-medium text-sm">Kegiatan</a>
-            <a href="#galeri" class="block px-3 py-2.5 rounded-lg text-neutral/70 hover:bg-light font-medium text-sm">Galeri</a>
-            <a href="#kontak" class="block px-3 py-2.5 rounded-lg text-neutral/70 hover:bg-light font-medium text-sm">Kontak</a>
+            <a href="{{ route('berita') }}" class="{{ request()->routeIs('berita') ? 'text-primary bg-primary-light font-semibold' : 'text-neutral/70 hover:bg-light font-medium' }} block px-3 py-2.5 rounded-lg text-sm">Berita</a>
+            <a href="{{ route('kegiatan') }}" class="{{ request()->routeIs('kegiatan') ? 'text-primary bg-primary-light font-semibold' : 'text-neutral/70 hover:bg-light font-medium' }} block px-3 py-2.5 rounded-lg text-sm">Kegiatan</a>
+            <a href="{{ route('galeri') }}" class="{{ request()->routeIs('galeri') ? 'text-primary bg-primary-light font-semibold' : 'text-neutral/70 hover:bg-light font-medium' }} block px-3 py-2.5 rounded-lg text-sm">Galeri</a>
+            <a href="{{ route('kontak') }}" class="{{ request()->routeIs('kontak') ? 'text-primary bg-primary-light font-semibold' : 'text-neutral/70 hover:bg-light font-medium' }} block px-3 py-2.5 rounded-lg text-sm">Kontak</a>
 
             <div class="pt-3">
-                <a href="#ppdb" class="btn-primary w-full justify-center !text-xs !font-bold !uppercase !tracking-wider">PPDB 2026</a>
+                <a href="{{ route('ppdb.home') }}" class="btn-primary w-full justify-center !text-xs !font-bold !uppercase !tracking-wider">PPDB {{ $school_setting->ppdb_year ? explode('/', $school_setting->ppdb_year)[0] : '2026' }}</a>
             </div>
         </div>
     </div>
