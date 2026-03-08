@@ -14,10 +14,17 @@
     
     <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
         <div class="animate-fade-in-up">
+            @if($school_setting->ppdb_status === 'open')
             <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-bold uppercase py-2 px-5 rounded-full mb-6 border border-white/20">
                 <span class="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
                 Pendaftaran Dibuka
             </div>
+            @else
+            <div class="inline-flex items-center gap-2 bg-red-500/80 backdrop-blur-sm text-white text-xs font-bold uppercase py-2 px-5 rounded-full mb-6 border border-white/20">
+                <span class="w-2 h-2 bg-red-200 rounded-full"></span>
+                Pendaftaran Ditutup
+            </div>
+            @endif
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
                 PENDAFTARAN PESERTA<br>DIDIK BARU <span class="text-secondary">{{ $school_setting->ppdb_year ? explode('/', $school_setting->ppdb_year)[0] : '2026' }}/{{ $school_setting->ppdb_year ? explode('/', $school_setting->ppdb_year)[1] ?? '2027' : '2027' }}</span>
             </h1>
@@ -129,10 +136,12 @@
         <h2 class="text-3xl font-extrabold text-neutral mb-4">Siap Mendaftar?</h2>
         <p class="text-neutral/60 mb-8">Buat akun dan lengkapi formulir pendaftaran sekarang juga.</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            @if($school_setting->ppdb_status === 'open')
             <a href="{{ route('ppdb.register') }}" class="ppdb-btn text-sm px-8 py-4 !rounded-2xl uppercase tracking-wider">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
                 Buat Akun Baru
             </a>
+            @endif
             <a href="{{ route('ppdb.daftar') }}" class="border-2 border-primary text-primary px-8 py-4 rounded-2xl font-bold text-sm hover:bg-primary hover:text-white transition-all uppercase tracking-wider inline-flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
                 Sudah Punya Akun

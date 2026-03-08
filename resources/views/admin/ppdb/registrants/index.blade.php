@@ -10,6 +10,12 @@
             <h3 class="text-2xl font-black text-slate-800 tracking-tight">Pendaftar Siswa Baru</h3>
             <p class="text-slate-500 font-medium">Daftar calon siswa yang telah mendaftar melalui website.</p>
         </div>
+        <a href="{{ route('admin.ppdb.registrants.export', ['jalur' => $jalur]) }}" class="px-5 py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow-[0_10px_20px_-10px_rgba(5,150,105,0.4)] hover:bg-emerald-700 hover:shadow-[0_15px_25px_-12px_rgba(5,150,105,0.5)] transition-all flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Export Excel
+        </a>
     </div>
 
     @if(session('success'))
@@ -21,6 +27,18 @@
         </div>
     @endif
 
+    <div class="flex flex-wrap gap-2 mb-2">
+        <a href="{{ route('admin.ppdb.registrants.index') }}" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all {{ !$jalur ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 border border-slate-200' }}">
+            Semua ({{ $counts['semua'] ?? 0 }})
+        </a>
+        <a href="{{ route('admin.ppdb.registrants.index', ['jalur' => 'prestasi']) }}" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all {{ $jalur == 'prestasi' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 border border-slate-200' }}">
+            Jalur Prestasi ({{ $counts['prestasi'] ?? 0 }})
+        </a>
+        <a href="{{ route('admin.ppdb.registrants.index', ['jalur' => 'reguler']) }}" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all {{ $jalur == 'reguler' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 border border-slate-200' }}">
+            Jalur Reguler ({{ $counts['reguler'] ?? 0 }})
+        </a>
+    </div>
+
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
@@ -29,8 +47,8 @@
                         <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">No. Pendaftaran</th>
                         <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">Nama Lengkap</th>
                         <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">Asal Sekolah</th>
+                        <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">Rata-rata</th>
                         <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">Status</th>
-                        <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">Tanggal</th>
                         <th class="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -48,12 +66,12 @@
                             <span class="text-sm font-semibold text-slate-600">{{ $registrant->origin_school ?? '-' }}</span>
                         </td>
                         <td class="px-8 py-6">
+                            <span class="text-sm font-bold text-slate-700">{{ number_format($registrant->average_grade, 2) }}</span>
+                        </td>
+                        <td class="px-8 py-6">
                             <span class="px-3 py-1 bg-{{ collect($registrant->status_color)->first() ?? $registrant->status_color }}-100 text-{{ collect($registrant->status_color)->first() ?? $registrant->status_color }}-700 rounded-lg text-xs font-black tracking-tight uppercase">
                                 {{ collect($registrant->status_label)->first() ?? $registrant->status_label }}
                             </span>
-                        </td>
-                        <td class="px-8 py-6">
-                            <span class="text-sm font-semibold text-slate-400">{{ $registrant->created_at->format('d/m/Y') }}</span>
                         </td>
                         <td class="px-8 py-6 text-right">
                             <div class="flex items-center justify-end gap-2">

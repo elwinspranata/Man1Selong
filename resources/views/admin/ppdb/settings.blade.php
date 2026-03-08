@@ -44,6 +44,26 @@
                     </div>
                 </div>
 
+                <div class="space-y-4 pt-4 border-t border-slate-100">
+                    <label class="text-sm font-bold text-slate-600 ml-1 uppercase tracking-widest">Status Pengumuman Kelulusan</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="relative flex items-center p-6 border-2 rounded-2xl cursor-pointer transition-all {{ ($settings->pengumuman_status ?? false) ? 'border-primary bg-primary/5' : 'border-slate-100 bg-slate-50 hover:border-slate-200' }}">
+                            <input type="radio" name="pengumuman_status" value="1" class="text-primary focus:ring-primary" {{ ($settings->pengumuman_status ?? false) ? 'checked' : '' }}>
+                            <div class="ml-4">
+                                <span class="block font-black text-slate-800 uppercase tracking-tight">Dibuka</span>
+                                <span class="block text-xs font-bold text-slate-400">Peserta dapat melihat hasil seleksi.</span>
+                            </div>
+                        </label>
+                        <label class="relative flex items-center p-6 border-2 rounded-2xl cursor-pointer transition-all {{ !($settings->pengumuman_status ?? false) ? 'border-red-500 bg-red-50/50' : 'border-slate-100 bg-slate-50 hover:border-slate-200' }}">
+                            <input type="radio" name="pengumuman_status" value="0" class="text-red-600 focus:ring-red-500" {{ !($settings->pengumuman_status ?? false) ? 'checked' : '' }}>
+                            <div class="ml-4">
+                                <span class="block font-black text-slate-800 uppercase tracking-tight">Ditutup</span>
+                                <span class="block text-xs font-bold text-slate-400">Pengumuman belum tersedia.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="space-y-2 pt-4">
                     <label class="text-sm font-bold text-slate-600 ml-1">Tahun Pelajaran PPDB</label>
                     <input type="text" name="ppdb_year" value="{{ old('ppdb_year', $settings->ppdb_year ?? date('Y') . '/' . (date('Y')+1)) }}" required

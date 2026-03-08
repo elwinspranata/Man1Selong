@@ -1,0 +1,63 @@
+﻿cloudflared : 2026-03-07T22:01:50Z INF Thank you for trying Cloudflare
+ Tunnel. Doing so, without a Cloudflare account, is a quick way to exp
+eriment and try it out. However, be aware that these account-less Tunn
+els have no uptime guarantee, are subject to the Cloudflare Online Ser
+vices Terms of Use (https://www.cloudflare.com/website-terms/), and Cl
+oudflare reserves the right to investigate your use of Tunnels for vio
+lations of such terms. If you intend to use Tunnels in production you 
+should use a pre-created named tunnel by following: https://developers
+.cloudflare.com/cloudflare-one/connections/connect-apps
+At line:1 char:1
++ cloudflared tunnel --url http://127.0.0.1:8000 > tunnel_fix.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-03-07T22:0...ns/con 
+   nect-apps:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-03-07T22:01:50Z INF Requesting new quick Tunnel on trycloudflare.
+com...
+2026-03-07T22:01:55Z INF +--------------------------------------------
+------------------------------------------------+
+2026-03-07T22:01:55Z INF |  Your quick Tunnel has been created! Visit 
+it at (it may take some time to be reachable):  |
+2026-03-07T22:01:55Z INF |  https://alexander-accordingly-excess-edt.t
+rycloudflare.com                                |
+2026-03-07T22:01:55Z INF +--------------------------------------------
+------------------------------------------------+
+2026-03-07T22:01:55Z INF Cannot determine default configuration path. 
+No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp
+ ~/cloudflare-warp]
+2026-03-07T22:01:55Z INF Version 2025.8.1 (Checksum b5d598b00cc3a28cab
+c5812d9f762819334614bae452db4e7f23eefe7b081556)
+2026-03-07T22:01:55Z INF GOOS: windows, GOVersion: go1.24.2, GoArch: a
+md64
+2026-03-07T22:01:55Z INF Settings: map[ha-connections:1 protocol:quic 
+url:http://127.0.0.1:8000]
+2026-03-07T22:01:55Z INF cloudflared will not automatically update on 
+Windows systems.
+2026-03-07T22:01:55Z INF Generated Connector ID: 4e1c9478-a635-4977-b9
+4c-5f4f7b603c97
+2026-03-07T22:01:55Z INF Initial protocol quic
+2026-03-07T22:01:55Z INF ICMP proxy will use 172.20.10.4 as source for
+ IPv4
+2026-03-07T22:01:55Z INF ICMP proxy will use fe80::8750:7f6d:c579:5456
+ in zone Wi-Fi as source for IPv6
+2026-03-07T22:01:55Z ERR Cannot determine default origin certificate p
+ath. No file cert.pem in [~/.cloudflared ~/.cloudflare-warp ~/cloudfla
+re-warp]. You need to specify the origin certificate path by specifyin
+g the origincert option in the configuration file, or set TUNNEL_ORIGI
+N_CERT environment variable originCertPath=
+2026-03-07T22:01:55Z INF cloudflared does not support loading the syst
+em root certificate pool on Windows. Please use --origin-ca-pool <PATH
+> to specify the path to the certificate pool
+2026-03-07T22:01:55Z INF ICMP proxy will use 172.20.10.4 as source for
+ IPv4
+2026-03-07T22:01:55Z INF Tunnel connection curve preferences: [X25519M
+LKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.233
+2026-03-07T22:01:55Z INF ICMP proxy will use fe80::8750:7f6d:c579:5456
+ in zone Wi-Fi as source for IPv6
+2026-03-07T22:01:55Z INF Starting metrics server on 127.0.0.1:20241/me
+trics
+2026-03-07T22:01:56Z INF Registered tunnel connection connIndex=0 conn
+ection=f7176472-e05c-4eb9-b541-023edbbf98ae event=0 ip=198.41.200.233 
+location=sin13 protocol=quic

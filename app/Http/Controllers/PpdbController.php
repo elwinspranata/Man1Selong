@@ -31,10 +31,19 @@ class PpdbController extends Controller
     /**
      * Pengumuman PPDB
      */
-    public function pengumuman()
+    public function pengumuman(Request $request)
     {
         $school_setting = \App\Models\SchoolSetting::first();
-        return view('ppdb.pengumuman', compact('school_setting'));
+        $search = $request->query('nisn');
+        $result = null;
+
+        if ($search && $school_setting->pengumuman_status) {
+            $result = \App\Models\PpdbRegistrant::where('nisn', $search)
+                ->orWhere('registration_number', $search)
+                ->first();
+        }
+
+        return view('ppdb.pengumuman', compact('school_setting', 'search', 'result'));
     }
 
     /**
@@ -74,10 +83,14 @@ class PpdbController extends Controller
      */
     public function showRegister()
     {
+        $school_setting = \App\Models\SchoolSetting::first();
+        if ($school_setting->ppdb_status === 'closed') {
+            return redirect()->route('ppdb.home')->with('error', 'Pendaftaran PPDB saat ini telah ditutup.');
+        }
+
         if (Auth::guard('ppdb')->check()) {
             return redirect()->route('ppdb.formulir');
         }
-        $school_setting = \App\Models\SchoolSetting::first();
         return view('ppdb.register', compact('school_setting'));
     }
 
@@ -86,6 +99,11 @@ class PpdbController extends Controller
      */
     public function register(Request $request)
     {
+        $school_setting = \App\Models\SchoolSetting::first();
+        if ($school_setting->ppdb_status === 'closed') {
+            return redirect()->route('ppdb.home')->with('error', 'Pendaftaran PPDB saat ini telah ditutup.');
+        }
+
         $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:ppdb_registrants,email',
@@ -114,6 +132,12 @@ class PpdbController extends Controller
     {
         $registrant = Auth::guard('ppdb')->user();
         $school_setting = \App\Models\SchoolSetting::first();
+
+        // Jika pendaftaran ditutup dan peserta belum submit, blokir akses ke formulir
+        if ($school_setting->ppdb_status === 'closed' && !$registrant->is_submitted) {
+            return redirect()->route('ppdb.home')->with('error', 'Pendaftaran PPDB saat ini telah ditutup.');
+        }
+
         return view('ppdb.formulir', compact('registrant', 'school_setting'));
     }
 
@@ -122,7 +146,12 @@ class PpdbController extends Controller
      */
     public function saveFormulir(Request $request)
     {
+        $school_setting = \App\Models\SchoolSetting::first();
         $registrant = Auth::guard('ppdb')->user();
+
+        if ($school_setting->ppdb_status === 'closed' && !$registrant->is_submitted) {
+            return redirect()->route('ppdb.home')->with('error', 'Pendaftaran PPDB saat ini telah ditutup.');
+        }
 
         $request->validate([
             'full_name' => 'required|string|max:255',
@@ -132,6 +161,7 @@ class PpdbController extends Controller
             'birth_place' => 'required|string|max:255',
             'birth_date' => 'required|date',
             'religion' => 'nullable|string|max:50',
+            'nomor_kip' => 'nullable|string|max:50',
             'origin_school' => 'required|string|max:255',
             'origin_school_npsn' => 'nullable|string|max:20',
             'phone' => 'required|string|max:20',
@@ -142,14 +172,36 @@ class PpdbController extends Controller
             'village' => 'nullable|string|max:100',
             'postal_code' => 'nullable|string|max:10',
             'father_name' => 'nullable|string|max:255',
+            'father_nik' => 'nullable|string|max:20',
+            'pendidikan_ayah' => 'nullable|string|max:50',
             'father_occupation' => 'nullable|string|max:255',
+            'penghasilan_ayah' => 'nullable|string|max:50',
             'father_phone' => 'nullable|string|max:20',
             'mother_name' => 'nullable|string|max:255',
+            'mother_nik' => 'nullable|string|max:20',
+            'pendidikan_ibu' => 'nullable|string|max:50',
             'mother_occupation' => 'nullable|string|max:255',
+            'penghasilan_ibu' => 'nullable|string|max:50',
             'mother_phone' => 'nullable|string|max:20',
             'guardian_name' => 'nullable|string|max:255',
+            'guardian_nik' => 'nullable|string|max:20',
             'guardian_phone' => 'nullable|string|max:20',
             'jalur' => 'required|in:prestasi,reguler',
+            'nilai_mtk_3' => 'nullable|numeric|min:0|max:100',
+            'nilai_mtk_4' => 'nullable|numeric|min:0|max:100',
+            'nilai_mtk_5' => 'nullable|numeric|min:0|max:100',
+            'nilai_ipa_3' => 'nullable|numeric|min:0|max:100',
+            'nilai_ipa_4' => 'nullable|numeric|min:0|max:100',
+            'nilai_ipa_5' => 'nullable|numeric|min:0|max:100',
+            'nilai_ips_3' => 'nullable|numeric|min:0|max:100',
+            'nilai_ips_4' => 'nullable|numeric|min:0|max:100',
+            'nilai_ips_5' => 'nullable|numeric|min:0|max:100',
+            'nilai_eng_3' => 'nullable|numeric|min:0|max:100',
+            'nilai_eng_4' => 'nullable|numeric|min:0|max:100',
+            'nilai_eng_5' => 'nullable|numeric|min:0|max:100',
+            'nilai_pai_3' => 'nullable|numeric|min:0|max:100',
+            'nilai_pai_4' => 'nullable|numeric|min:0|max:100',
+            'nilai_pai_5' => 'nullable|numeric|min:0|max:100',
             'photo' => 'nullable|image|max:2048',
             'ijazah_file' => 'nullable|file|max:5120',
             'kk_file' => 'nullable|file|max:5120',
@@ -181,7 +233,12 @@ class PpdbController extends Controller
      */
     public function submit()
     {
+        $school_setting = \App\Models\SchoolSetting::first();
         $registrant = Auth::guard('ppdb')->user();
+        
+        if ($school_setting->ppdb_status === 'closed' && !$registrant->is_submitted) {
+            return redirect()->route('ppdb.home')->with('error', 'Pendaftaran PPDB saat ini telah ditutup.');
+        }
         
         // Basic validation before submission
         if (!$registrant->full_name || !$registrant->birth_place || !$registrant->birth_date || 

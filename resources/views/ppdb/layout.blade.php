@@ -137,9 +137,9 @@
             {{-- Logo --}}
             <a href="{{ route('ppdb.home') }}" class="flex items-center gap-3 flex-shrink-0">
                 <img src="{{ $school_setting->logo ? asset('storage/'.$school_setting->logo) : asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto">
-                <div class="hidden sm:block leading-tight">
-                    <span class="block text-primary font-extrabold text-sm tracking-tight">{{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}</span>
-                    <span class="block text-neutral-light text-[10px] font-semibold tracking-widest uppercase">PPDB Online {{ $school_setting->ppdb_year ?: '2026/2027' }}</span>
+                <div class="block leading-tight">
+                    <span class="block text-primary font-extrabold text-sm sm:text-base tracking-tight">{{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}</span>
+                    <span class="block text-neutral-light text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">PPDB Online {{ $school_setting->ppdb_year ?: '2026/2027' }}</span>
                 </div>
             </a>
 

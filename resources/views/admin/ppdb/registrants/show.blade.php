@@ -161,6 +161,71 @@
             </div>
         </div>
 
+        <!-- Semester Grades -->
+        <div class="p-10 border-t border-slate-100">
+            <h4 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-indigo-500 rounded-full"></span>
+                Nilai Rapor Semester 3, 4, dan 5
+            </h4>
+            
+            @php
+                $grades = [
+                    $registrant->nilai_mtk_3, $registrant->nilai_mtk_4, $registrant->nilai_mtk_5,
+                    $registrant->nilai_ipa_3, $registrant->nilai_ipa_4, $registrant->nilai_ipa_5,
+                    $registrant->nilai_ips_3, $registrant->nilai_ips_4, $registrant->nilai_ips_5,
+                    $registrant->nilai_eng_3, $registrant->nilai_eng_4, $registrant->nilai_eng_5,
+                ];
+                $validGradesCount = count(array_filter($grades, 'is_numeric'));
+                $totalGrades = array_sum(array_filter($grades, 'is_numeric'));
+                $averageGrade = $validGradesCount > 0 ? $totalGrades / $validGradesCount : 0;
+            @endphp
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-600 bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                    <thead class="bg-slate-50 text-slate-700 font-black uppercase text-xs tracking-wider border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4">Mata Pelajaran</th>
+                            <th class="px-6 py-4 text-center">Semester 3</th>
+                            <th class="px-6 py-4 text-center">Semester 4</th>
+                            <th class="px-6 py-4 text-center">Semester 5</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-medium">
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-slate-800 pl-6">Matematika</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_mtk_3 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_mtk_4 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_mtk_5 ?? '-' }}</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-slate-800 pl-6">Ilmu Pengetahuan Alam (IPA)</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ipa_3 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ipa_4 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ipa_5 ?? '-' }}</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-slate-800 pl-6">Ilmu Pengetahuan Sosial (IPS)</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ips_3 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ips_4 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_ips_5 ?? '-' }}</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-slate-800 pl-6">Bahasa Inggris</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_eng_3 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_eng_4 ?? '-' }}</td>
+                            <td class="px-6 py-4 text-center">{{ $registrant->nilai_eng_5 ?? '-' }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="bg-indigo-50 border-t border-indigo-100">
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-right font-black text-indigo-900 uppercase text-xs tracking-wider">Rata-Rata Keseluruhan:</td>
+                            <td class="px-6 py-4 text-center font-black text-indigo-700 text-lg">{{ number_format($averageGrade, 2) }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
         <!-- Documents / Downloads -->
         <div class="p-10">
             <h4 class="text-lg font-black text-slate-800 mb-8 flex items-center gap-3">

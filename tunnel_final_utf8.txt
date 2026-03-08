@@ -1,0 +1,117 @@
+﻿cloudflared : 2026-03-07T21:58:35Z
+ INF Thank you for trying Cloudfla
+re Tunnel. Doing so, without a Clo
+udflare account, is a quick way to
+ experiment and try it out. Howeve
+r, be aware that these account-les
+s Tunnels have no uptime guarantee
+, are subject to the Cloudflare On
+line Services Terms of Use (https:
+//www.cloudflare.com/website-terms
+/), and Cloudflare reserves the ri
+ght to investigate your use of Tun
+nels for violations of such terms.
+ If you intend to use Tunnels in p
+roduction you should use a pre-cre
+ated named tunnel by following: ht
+tps://developers.cloudflare.com/cl
+oudflare-one/connections/connect-a
+pps
+At line:1 char:1
++ cloudflared tunnel --url http://
+localhost:8000 > tunnel_final.txt 
+2>& ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo          : Not 
+   Specified: (2026-03-07T21:5..  
+  .ns/connect-apps:String) [],    
+ RemoteException
+    + FullyQualifiedErrorId : Nat 
+   iveCommandError
+ 
+2026-03-07T21:58:35Z INF Requestin
+g new quick Tunnel on trycloudflar
+e.com...
+2026-03-07T21:58:41Z INF +--------
+----------------------------------
+----------------------------------
+----------------+
+2026-03-07T21:58:41Z INF |  Your q
+uick Tunnel has been created! Visi
+t it at (it may take some time to 
+be reachable):  |
+2026-03-07T21:58:41Z INF |  https:
+//accountability-late-yoga-gear.tr
+ycloudflare.com                   
+                |
+2026-03-07T21:58:41Z INF +--------
+----------------------------------
+----------------------------------
+----------------+
+2026-03-07T21:58:41Z INF Cannot de
+termine default configuration path
+. No file [config.yml config.yaml]
+ in [~/.cloudflared ~/.cloudflare-
+warp ~/cloudflare-warp]
+2026-03-07T21:58:41Z INF Version 2
+025.8.1 (Checksum b5d598b00cc3a28c
+abc5812d9f762819334614bae452db4e7f
+23eefe7b081556)
+2026-03-07T21:58:41Z INF GOOS: win
+dows, GOVersion: go1.24.2, GoArch:
+ amd64
+2026-03-07T21:58:41Z INF Settings:
+ map[ha-connections:1 protocol:qui
+c url:http://localhost:8000]
+2026-03-07T21:58:41Z INF cloudflar
+ed will not automatically update o
+n Windows systems.
+2026-03-07T21:58:41Z INF Generated
+ Connector ID: 3d735ac2-cddd-4644-
+834f-00efeebd27f6
+2026-03-07T21:58:41Z INF Initial p
+rotocol quic
+2026-03-07T21:58:41Z INF ICMP prox
+y will use 172.20.10.4 as source f
+or IPv4
+2026-03-07T21:58:41Z INF ICMP prox
+y will use fe80::8750:7f6d:c579:54
+56 in zone Wi-Fi as source for IPv
+6
+2026-03-07T21:58:41Z ERR Cannot de
+termine default origin certificate
+ path. No file cert.pem in [~/.clo
+udflared ~/.cloudflare-warp ~/clou
+dflare-warp]. You need to specify 
+the origin certificate path by spe
+cifying the origincert option in t
+he configuration file, or set TUNN
+EL_ORIGIN_CERT environment variabl
+e originCertPath=
+2026-03-07T21:58:41Z INF cloudflar
+ed does not support loading the sy
+stem root certificate pool on Wind
+ows. Please use --origin-ca-pool <
+PATH> to specify the path to the c
+ertificate pool
+2026-03-07T21:58:41Z INF ICMP prox
+y will use 172.20.10.4 as source f
+or IPv4
+2026-03-07T21:58:41Z INF Tunnel co
+nnection curve preferences: [X2551
+9MLKEM768 CurveP256] connIndex=0 e
+vent=0 ip=198.41.200.53
+2026-03-07T21:58:41Z INF ICMP prox
+y will use fe80::8750:7f6d:c579:54
+56 in zone Wi-Fi as source for IPv
+6
+2026-03-07T21:58:41Z INF Starting 
+metrics server on 127.0.0.1:20242/
+metrics
+2026-03-07T21:58:41Z INF Registere
+d tunnel connection connIndex=0 co
+nnection=1a693e51-852e-43c7-9384-0
+8e2b48b90d6 event=0 ip=198.41.200.
+53 location=sin22 protocol=quic

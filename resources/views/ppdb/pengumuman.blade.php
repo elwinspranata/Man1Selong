@@ -15,27 +15,65 @@
 <section class="py-16 bg-white">
     <div class="max-w-3xl mx-auto px-4">
         
-        {{-- Search box --}}
-        <div class="ppdb-card p-6 md:p-8 mb-10" x-data="{ nisn: '', searched: false, found: false }">
+        {{-- Search box Section --}}
+        @if($school_setting->pengumuman_status)
+        <div class="ppdb-card p-6 md:p-8 mb-10">
             <h2 class="text-xl font-bold text-neutral mb-4 text-center">Cek Status Pendaftaran</h2>
             <p class="text-sm text-neutral/50 text-center mb-6">Masukkan NISN atau Nomor Pendaftaran untuk memeriksa status</p>
             
-            <div class="flex gap-3">
-                <input type="text" x-model="nisn" class="ppdb-input flex-1" placeholder="Masukkan NISN atau No. Pendaftaran">
-                <button @click="searched = true; found = false" class="ppdb-btn whitespace-nowrap cursor-pointer">
+            <form action="{{ route('ppdb.pengumuman') }}" method="GET" class="flex gap-3">
+                <input type="text" name="nisn" value="{{ request('nisn') }}" class="ppdb-input flex-1" placeholder="Masukkan NISN atau No. Pendaftaran" required>
+                <button type="submit" class="ppdb-btn whitespace-nowrap cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     Cari
                 </button>
-            </div>
+            </form>
 
-            <div x-show="searched && nisn.length > 0" x-cloak x-transition class="mt-6">
-                <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl text-center">
-                    <div class="text-3xl mb-3">📋</div>
-                    <p class="text-sm text-neutral/60 font-medium">Pengumuman hasil seleksi akan ditampilkan setelah proses seleksi selesai.</p>
-                    <p class="text-xs text-neutral/40 mt-2">Silakan cek kembali sesuai jadwal pengumuman.</p>
-                </div>
+            @if(request('nisn'))
+            <div class="mt-6">
+                @if($result)
+                    <div class="bg-slate-50 border border-slate-200 p-6 rounded-xl text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 {{ $result->status == 'accepted' ? 'bg-emerald-100 text-emerald-600' : ($result->status == 'rejected' ? 'bg-red-100 text-red-600' : 'bg-yellow-100 text-yellow-600') }}">
+                            @if($result->status == 'accepted')
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            @elseif($result->status == 'rejected')
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            @else
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            @endif
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">{{ $result->full_name }}</h3>
+                        <p class="text-sm font-medium text-slate-500 mb-4">{{ $result->registration_number }} - NISN: {{ $result->nisn }}</p>
+                        
+                        <div class="inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide {{ $result->status == 'accepted' ? 'bg-emerald-500 text-white' : ($result->status == 'rejected' ? 'bg-red-500 text-white' : 'bg-yellow-500 text-white') }}">
+                            STATUS: {{ strtoupper(collect($result->status_label)->first() ?? $result->status_label) }}
+                        </div>
+                        
+                        @if($result->status == 'accepted')
+                        <p class="text-sm text-emerald-600 font-medium mt-4">Selamat! Anda telah diterima sebagai calon peserta didik baru.</p>
+                        @elseif($result->status == 'rejected')
+                        <p class="text-sm text-red-600 font-medium mt-4">Mohon maaf, Anda belum lulus seleksi.</p>
+                        @else
+                        <p class="text-sm text-yellow-600 font-medium mt-4">Proses seleksi/verifikasi masih berlangsung. Harap cek kembali secara berkala.</p>
+                        @endif
+                    </div>
+                @else
+                    <div class="bg-red-50 border border-red-200 p-6 rounded-xl text-center">
+                        <p class="text-red-600 font-medium">Data pendaftar dengan NISN / Nomor Pendaftaran <strong>{{ request('nisn') }}</strong> tidak ditemukan.</p>
+                    </div>
+                @endif
             </div>
+            @endif
         </div>
+        @else
+        <div class="ppdb-card p-10 mb-10 text-center">
+            <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h2 class="text-2xl font-black text-slate-800 mb-2">Pengumuman Belum Dibuka</h2>
+            <p class="text-slate-500 font-medium max-w-md mx-auto">Hasil seleksi PPDB untuk tahun ini belum diumumkan. Silakan pantau terus informasi terbaru di website kami.</p>
+        </div>
+        @endif
 
         {{-- Announcements Timeline --}}
         <div>

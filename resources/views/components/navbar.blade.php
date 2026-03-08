@@ -12,9 +12,9 @@
         {{-- ── Logo ── --}}
         <a href="/" class="flex items-center gap-2.5 flex-shrink-0">
             <img src="{{ $school_setting->logo ? asset('storage/'.$school_setting->logo) : asset('images/logo.png') }}" alt="Logo {{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}" class="h-10 w-auto">
-            <div class="hidden sm:block leading-tight">
-                <span class="block text-primary font-extrabold text-sm tracking-tight text-nowrap">{{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}</span>
-                <span class="block text-neutral-light text-[10px] font-semibold tracking-widest uppercase">{{ $school_setting->school_alias ?: 'Kemenag Lotim' }}</span>
+            <div class="block leading-tight">
+                <span class="block text-primary font-extrabold text-sm sm:text-base tracking-tight text-nowrap">{{ $school_setting->school_name ?: 'MAN 1 Lombok Timur' }}</span>
+                <span class="block text-neutral-light text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">{{ $school_setting->school_alias ?: 'Kemenag Lotim' }}</span>
             </div>
         </a>
 

@@ -31,9 +31,23 @@
             </div>
 
             {{-- Registration info --}}
-            <div class="bg-primary-light p-4 rounded-xl mb-8 text-center">
-                <p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">Nomor Pendaftaran</p>
-                <p class="text-2xl font-extrabold text-primary tracking-widest">{{ $registrant->registration_number }}</p>
+            <div class="flex flex-col md:flex-row gap-6 mb-8 items-center bg-primary-light p-6 rounded-xl border border-primary/20">
+                <div class="shrink-0 bg-white p-1 rounded-xl shadow-sm border border-slate-200">
+                    @if($registrant->photo)
+                    <img src="{{ asset('storage/' . $registrant->photo) }}" alt="Foto 3x4" class="w-24 h-32 object-cover rounded-lg">
+                    @else
+                    <div class="w-24 h-32 bg-slate-100 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center">
+                        <div class="text-center">
+                            <svg class="w-6 h-6 text-slate-300 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <p class="text-[9px] text-slate-400 font-medium">3x4</p>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <p class="text-sm font-bold text-primary uppercase tracking-wider mb-2">Nomor Pendaftaran</p>
+                    <p class="text-3xl font-black text-primary tracking-widest">{{ $registrant->registration_number }}</p>
+                </div>
             </div>
 
             {{-- Data table --}}

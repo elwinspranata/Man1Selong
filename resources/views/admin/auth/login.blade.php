@@ -55,7 +55,29 @@
         <!-- Right Side: Login Form -->
         <div class="w-full lg:w-5/12 flex items-center justify-center p-8 lg:p-16 bg-white">
             <div class="w-full max-w-md">
-                <div class="mb-12">
+                <div class="mb-12 text-center lg:text-left">
+                    <!-- Mobile Header (Logo & Title) -->
+                    <div class="lg:hidden flex flex-col items-center justify-center mb-10">
+                        <div class="mb-5 inline-block p-4 bg-emerald-50 rounded-3xl border border-emerald-100 shadow-sm">
+                            @php $school_setting = \App\Models\SchoolSetting::first(); @endphp
+                            @if($school_setting && $school_setting->logo)
+                                <img src="{{ asset('storage/' . $school_setting->logo) }}" alt="Logo" class="h-20 w-auto">
+                            @else
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20 w-auto">
+                            @endif
+                        </div>
+                        <h1 class="text-4xl font-black text-slate-900 tracking-tighter leading-tight">
+                            MAN 1
+                        </h1>
+                        <h2 class="text-2xl font-bold text-emerald-600 tracking-tight drop-shadow-sm">
+                            LOMBOK TIMUR
+                        </h2>
+                        <div class="flex items-center justify-center gap-4 mt-3">
+                            <div class="h-px w-8 bg-emerald-200"></div>
+                            <span class="text-[10px] font-black text-emerald-800/60 tracking-[0.4em] uppercase">Portal Administrasi</span>
+                            <div class="h-px w-8 bg-emerald-200"></div>
+                        </div>
+                    </div>
                     <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Selamat Datang</h2>
                     <p class="text-slate-500 font-medium">Silakan masuk untuk mengelola portal sekolah.</p>
                 </div>

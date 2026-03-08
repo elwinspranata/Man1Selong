@@ -16,7 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('ppdb/*')) {
                 return route('ppdb.daftar');
             }
-            return route('filament.admin.auth.login');
+            if ($request->is('custom-admin/*')) {
+                return route('admin.login');
+            }
+            return route('admin.login');
         });
     })
     ->withExceptions(function (Exceptions $exceptions): void {

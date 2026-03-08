@@ -58,6 +58,21 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        $ppdb_stats = [
+            'prestasi' => [
+                'accepted' => \App\Models\PpdbRegistrant::where('jalur', 'prestasi')->where('status', 'accepted')->count(),
+                'process' => \App\Models\PpdbRegistrant::where('jalur', 'prestasi')->whereIn('status', ['pending', 'verified'])->count(),
+                'rejected' => \App\Models\PpdbRegistrant::where('jalur', 'prestasi')->where('status', 'rejected')->count(),
+                'total' => \App\Models\PpdbRegistrant::where('jalur', 'prestasi')->count(),
+            ],
+            'reguler' => [
+                'accepted' => \App\Models\PpdbRegistrant::where('jalur', 'reguler')->where('status', 'accepted')->count(),
+                'process' => \App\Models\PpdbRegistrant::where('jalur', 'reguler')->whereIn('status', ['pending', 'verified'])->count(),
+                'rejected' => \App\Models\PpdbRegistrant::where('jalur', 'reguler')->where('status', 'rejected')->count(),
+                'total' => \App\Models\PpdbRegistrant::where('jalur', 'reguler')->count(),
+            ]
+        ];
+
         $stats = [
             'posts_count' => \App\Models\Post::count(),
             'teachers_count' => \App\Models\Teacher::count(),
@@ -65,6 +80,6 @@ class AdminController extends Controller
             'registrants_count' => \App\Models\PpdbRegistrant::count(),
         ];
 
-        return view('admin.dashboard', compact('stats'));
+        return view('admin.dashboard', compact('stats', 'ppdb_stats'));
     }
 }

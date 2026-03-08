@@ -5,18 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') - MAN 1 LOMBOK TIMUR</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .sidebar-gradient {
             background: linear-gradient(180deg, #064e3b 0%, #065f46 100%);
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900" x-data="{ sidebarOpen: false }">
     <div class="flex h-screen overflow-hidden">
+        <!-- Mobile sidebar overlay -->
+        <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-40 bg-slate-900/80 backdrop-blur-sm lg:hidden" @click="sidebarOpen = false" x-cloak></div>
         <!-- Sidebar -->
-        <aside class="w-72 sidebar-gradient text-white flex-shrink-0 flex flex-col shadow-2xl z-50">
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-50 w-72 sidebar-gradient text-white flex-shrink-0 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto">
             <div class="p-6 flex items-center gap-4 border-b border-white/10">
                 <div class="p-2 bg-white/10 rounded-xl border border-white/20">
                     @php $school_setting = \App\Models\SchoolSetting::first(); @endphp
@@ -164,13 +168,19 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col h-full overflow-hidden">
-            <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+        <main class="flex-1 flex flex-col h-full overflow-hidden w-full lg:w-auto">
+            <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 relative z-30">
                 <div class="flex items-center gap-4">
-                    <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">@yield('page_title', 'Dashboard')</h2>
+                    <!-- Hamburger Menu Button -->
+                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden text-slate-500 hover:text-emerald-600 focus:outline-none p-2 rounded-xl hover:bg-slate-100 transition-colors">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <h2 class="text-xl font-extrabold text-slate-800 tracking-tight truncate max-w-[150px] sm:max-w-none">@yield('page_title', 'Dashboard')</h2>
                 </div>
-                <div class="flex items-center gap-6">
-                    <div class="text-right">
+                <div class="flex items-center gap-3 lg:gap-6">
+                    <div class="text-right hidden sm:block">
                         <p class="text-sm font-black text-slate-900 leading-none">{{ Auth::user()->name ?? 'Administrator' }}</p>
                         <p class="text-[0.6rem] font-bold text-emerald-600 uppercase tracking-widest mt-1">Super Admin</p>
                     </div>
@@ -180,7 +190,7 @@
                 </div>
             </header>
 
-            <div class="flex-1 overflow-y-auto p-8">
+            <div class="flex-1 overflow-y-auto p-4 lg:p-8">
                 @yield('content')
             </div>
         </main>

@@ -21,6 +21,7 @@ class PpdbController extends Controller
         $data = $request->validate([
             'ppdb_status' => 'required|in:open,closed',
             'ppdb_year' => 'required|string|max:255',
+            'pengumuman_status' => 'required|boolean',
         ]);
 
         $settings = SchoolSetting::first();
@@ -29,10 +30,33 @@ class PpdbController extends Controller
         return redirect()->back()->with('success', 'Pengaturan PPDB berhasil diperbarui.');
     }
 
-    public function registrants()
+    public function registrants(Request $request)
     {
-        $registrants = PpdbRegistrant::latest()->paginate(10);
-        return view('admin.ppdb.registrants.index', compact('registrants'));
+        $jalur = $request->query('jalur');
+        
+        $query = PpdbRegistrant::latest();
+        
+        if ($jalur && in_array($jalur, ['prestasi', 'reguler'])) {
+            $query->where('jalur', $jalur);
+        }
+        
+        $registrants = $query->paginate(10)->withQueryString();
+        
+        $counts = [
+            'semua' => PpdbRegistrant::count(),
+            'prestasi' => PpdbRegistrant::where('jalur', 'prestasi')->count(),
+            'reguler' => PpdbRegistrant::where('jalur', 'reguler')->count(),
+        ];
+        
+        return view('admin.ppdb.registrants.index', compact('registrants', 'counts', 'jalur'));
+    }
+
+    public function export(Request $request)
+    {
+        $jalur = $request->query('jalur');
+        $filename = 'Data_Pendaftar_PPDB_' . ($jalur ? ucfirst($jalur) . '_' : '') . date('Ymd_His') . '.xlsx';
+        
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\RegistrantsExport($jalur), $filename);
     }
 
     public function showRegistrant(PpdbRegistrant $registrant)

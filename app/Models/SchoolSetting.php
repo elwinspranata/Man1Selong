@@ -22,10 +22,13 @@ class SchoolSetting extends Model
         'ppdb_year',
         'ppdb_flow',
         'ppdb_requirements',
+        'ppdb_status',
+        'pengumuman_status',
     ];
 
     protected $casts = [
         'ppdb_flow' => 'array',
         'ppdb_requirements' => 'array',
+        'pengumuman_status' => 'boolean',
     ];
 }

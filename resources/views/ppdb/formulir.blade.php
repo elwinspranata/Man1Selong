@@ -113,6 +113,10 @@
                         </select>
                     </div>
                     <div>
+                        <label class="ppdb-label">Nomor KIP <span class="text-xs text-neutral/50 font-normal">(Kartu Indonesia Pintar)</span></label>
+                        <input type="text" name="nomor_kip" value="{{ old('nomor_kip', $registrant->nomor_kip) }}" class="ppdb-input" placeholder="Isi jika memiliki" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                    </div>
+                    <div>
                         <label class="ppdb-label">Tempat Lahir <span class="text-red-500">*</span></label>
                         <input type="text" name="birth_place" value="{{ old('birth_place', $registrant->birth_place) }}" class="ppdb-input" placeholder="Contoh: Selong" {{ $registrant->is_submitted ? 'disabled' : '' }}>
                     </div>
@@ -179,14 +183,40 @@
                 {{-- Ayah --}}
                 <div class="mb-8">
                     <h3 class="text-sm font-bold text-neutral/70 uppercase tracking-wider mb-4 pb-2 border-b border-slate-100">Data Ayah</h3>
-                    <div class="grid md:grid-cols-3 gap-5">
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
                         <div>
                             <label class="ppdb-label">Nama Ayah</label>
                             <input type="text" name="father_name" value="{{ old('father_name', $registrant->father_name) }}" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
                         </div>
                         <div>
+                            <label class="ppdb-label">NIK Ayah</label>
+                            <input type="text" name="father_nik" value="{{ old('father_nik', $registrant->father_nik) }}" class="ppdb-input" placeholder="16 digit NIK" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
+                        <div>
+                            <label class="ppdb-label">Pendidikan Ayah</label>
+                            <select name="pendidikan_ayah" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                                <option value="">Pilih Pendidikan</option>
+                                @foreach(['Tidak Sekolah', 'SD/MI', 'SMP/MTs', 'SMK/SMA/MA', 'D1/D2/D3', 'S1', 'S2', 'S3'] as $edu)
+                                <option value="{{ $edu }}" {{ old('pendidikan_ayah', $registrant->pendidikan_ayah) == $edu ? 'selected' : '' }}>{{ $edu }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
                             <label class="ppdb-label">Pekerjaan Ayah</label>
                             <input type="text" name="father_occupation" value="{{ old('father_occupation', $registrant->father_occupation) }}" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="ppdb-label">Penghasilan Ayah</label>
+                            <select name="penghasilan_ayah" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                                <option value="">Pilih Penghasilan</option>
+                                @foreach(['-500rb', '500-1jt', '1jt-3jt', '3jt-5jt', '5jt-10jt', '10jt+'] as $inc)
+                                <option value="{{ $inc }}" {{ old('penghasilan_ayah', $registrant->penghasilan_ayah) == $inc ? 'selected' : '' }}>{{ $inc }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div>
                             <label class="ppdb-label">No. HP Ayah</label>
@@ -198,14 +228,40 @@
                 {{-- Ibu --}}
                 <div class="mb-8">
                     <h3 class="text-sm font-bold text-neutral/70 uppercase tracking-wider mb-4 pb-2 border-b border-slate-100">Data Ibu</h3>
-                    <div class="grid md:grid-cols-3 gap-5">
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
                         <div>
                             <label class="ppdb-label">Nama Ibu</label>
                             <input type="text" name="mother_name" value="{{ old('mother_name', $registrant->mother_name) }}" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
                         </div>
                         <div>
+                            <label class="ppdb-label">NIK Ibu</label>
+                            <input type="text" name="mother_nik" value="{{ old('mother_nik', $registrant->mother_nik) }}" class="ppdb-input" placeholder="16 digit NIK" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
+                        <div>
+                            <label class="ppdb-label">Pendidikan Ibu</label>
+                            <select name="pendidikan_ibu" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                                <option value="">Pilih Pendidikan</option>
+                                @foreach(['Tidak Sekolah', 'SD/MI', 'SMP/MTs', 'SMK/SMA/MA', 'D1/D2/D3', 'S1', 'S2', 'S3'] as $edu)
+                                <option value="{{ $edu }}" {{ old('pendidikan_ibu', $registrant->pendidikan_ibu) == $edu ? 'selected' : '' }}>{{ $edu }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
                             <label class="ppdb-label">Pekerjaan Ibu</label>
                             <input type="text" name="mother_occupation" value="{{ old('mother_occupation', $registrant->mother_occupation) }}" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="ppdb-label">Penghasilan Ibu</label>
+                            <select name="penghasilan_ibu" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                                <option value="">Pilih Penghasilan</option>
+                                @foreach(['-500rb', '500-1jt', '1jt-3jt', '3jt-5jt', '5jt-10jt', '10jt+'] as $inc)
+                                <option value="{{ $inc }}" {{ old('penghasilan_ibu', $registrant->penghasilan_ibu) == $inc ? 'selected' : '' }}>{{ $inc }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div>
                             <label class="ppdb-label">No. HP Ibu</label>
@@ -217,10 +273,14 @@
                 {{-- Wali --}}
                 <div>
                     <h3 class="text-sm font-bold text-neutral/70 uppercase tracking-wider mb-4 pb-2 border-b border-slate-100">Data Wali (Opsional)</h3>
-                    <div class="grid md:grid-cols-2 gap-5">
+                    <div class="grid md:grid-cols-3 gap-5">
                         <div>
                             <label class="ppdb-label">Nama Wali</label>
                             <input type="text" name="guardian_name" value="{{ old('guardian_name', $registrant->guardian_name) }}" class="ppdb-input" {{ $registrant->is_submitted ? 'disabled' : '' }}>
+                        </div>
+                        <div>
+                            <label class="ppdb-label">NIK Wali</label>
+                            <input type="text" name="guardian_nik" value="{{ old('guardian_nik', $registrant->guardian_nik) }}" class="ppdb-input" placeholder="16 digit NIK" {{ $registrant->is_submitted ? 'disabled' : '' }}>
                         </div>
                         <div>
                             <label class="ppdb-label">No. HP Wali</label>
@@ -270,6 +330,7 @@
                             ['key' => 'ipa', 'label' => 'IPA'],
                             ['key' => 'ips', 'label' => 'IPS'],
                             ['key' => 'eng', 'label' => 'B. Inggris'],
+                            ['key' => 'pai', 'label' => 'PAI'],
                         ];
                     @endphp
 

@@ -26,6 +26,7 @@ Route::prefix('custom-admin')->group(function () {
         Route::get('/ppdb/settings', [App\Http\Controllers\Admin\PpdbController::class, 'settings'])->name('admin.ppdb.settings');
         Route::post('/ppdb/settings', [App\Http\Controllers\Admin\PpdbController::class, 'updateSettings'])->name('admin.ppdb.settings.update');
         Route::get('/ppdb/registrants', [App\Http\Controllers\Admin\PpdbController::class, 'registrants'])->name('admin.ppdb.registrants.index');
+        Route::get('/ppdb/registrants/export', [App\Http\Controllers\Admin\PpdbController::class, 'export'])->name('admin.ppdb.registrants.export');
         Route::get('/ppdb/registrants/{registrant}', [App\Http\Controllers\Admin\PpdbController::class, 'showRegistrant'])->name('admin.ppdb.registrants.show');
         Route::put('/ppdb/registrants/{registrant}/verify', [App\Http\Controllers\Admin\PpdbController::class, 'verifyRegistrant'])->name('admin.ppdb.registrants.verify');
         Route::delete('/ppdb/registrants/{registrant}', [App\Http\Controllers\Admin\PpdbController::class, 'destroyRegistrant'])->name('admin.ppdb.registrants.destroy');
