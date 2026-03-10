@@ -64,18 +64,39 @@ class PpdbController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'login' => 'required|string',
             'password' => 'required',
         ]);
 
-        if (Auth::guard('ppdb')->attempt($request->only('email', 'password'))) {
+        $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'nisn';
+
+        $credentials = [
+            $loginField => $request->login,
+            'password' => $request->password,
+        ];
+
+        // Attempt standard Bcrypt login
+        if (Auth::guard('ppdb')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('ppdb.formulir');
+        }
+
+        // Fallback for legacy MD5 passwords
+        $registrant = PpdbRegistrant::where($loginField, $request->login)->first();
+        if ($registrant && $registrant->password === md5($request->password)) {
+            // Re-hash to Bcrypt for future logins
+            $registrant->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            Auth::guard('ppdb')->login($registrant);
             $request->session()->regenerate();
             return redirect()->route('ppdb.formulir');
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
+            'login' => 'Email/NISN atau password salah.',
+        ])->onlyInput('login');
     }
 
     /**

@@ -13,11 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class RegistrantsExport implements FromCollection, WithMapping, ShouldAutoSize, WithStyles, \Maatwebsite\Excel\Concerns\WithEvents, \Maatwebsite\Excel\Concerns\WithCustomStartCell
 {
     protected $jalur;
+    protected $tahun;
     protected $count = 0;
 
-    public function __construct($jalur = null)
+    public function __construct($jalur = null, $tahun = null)
     {
         $this->jalur = $jalur;
+        $this->tahun = $tahun;
     }
 
     public function collection()
@@ -26,6 +28,10 @@ class RegistrantsExport implements FromCollection, WithMapping, ShouldAutoSize, 
         
         if ($this->jalur && in_array($this->jalur, ['prestasi', 'reguler'])) {
             $query->where('jalur', $this->jalur);
+        }
+
+        if ($this->tahun) {
+            $query->whereYear('created_at', $this->tahun);
         }
         
         return $query->get();
@@ -98,9 +104,9 @@ class RegistrantsExport implements FromCollection, WithMapping, ShouldAutoSize, 
                 $sheet = $event->sheet->getDelegate();
                 
                 // Add the custom header text for rows 2, 3, 4
-                $sheet->setCellValue('A2', 'DATA SISWA DITERIMA JALUR ' . strtoupper($this->jalur ?: 'SEMUA'));
+                $sheet->setCellValue('A2', 'DATA SISWA DITERIMA JALUR ' . strtoupper($this->jalur ?: 'SEMUA') . ($this->tahun ? ' TAHUN ' . $this->tahun : ''));
                 $sheet->setCellValue('A3', 'TANGGAL : ' . date('d/m/Y'));
-                $sheet->setCellValue('A4', 'JUMLAH : ' . \App\Models\PpdbRegistrant::when($this->jalur, fn($q) => $q->where('jalur', $this->jalur))->count());
+                $sheet->setCellValue('A4', 'JUMLAH : ' . \App\Models\PpdbRegistrant::when($this->jalur, fn($q) => $q->where('jalur', $this->jalur))->when($this->tahun, fn($q) => $q->whereYear('created_at', $this->tahun))->count());
 
                 $sheet->getStyle('A2')->getFont()->setBold(true);
                 $sheet->getStyle('A3')->getFont()->setBold(true);

@@ -33,30 +33,53 @@ class PpdbController extends Controller
     public function registrants(Request $request)
     {
         $jalur = $request->query('jalur');
+        $tahun = $request->query('tahun');
+        $search = $request->query('search');
         
         $query = PpdbRegistrant::latest();
         
         if ($jalur && in_array($jalur, ['prestasi', 'reguler'])) {
             $query->where('jalur', $jalur);
         }
+
+        if ($tahun) {
+            $query->whereYear('created_at', $tahun);
+        }
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('full_name', 'like', "%{$search}%")
+                  ->orWhere('nisn', 'like', "%{$search}%")
+                  ->orWhere('registration_number', 'like', "%{$search}%");
+            });
+        }
         
-        $registrants = $query->paginate(10)->withQueryString();
+        $registrants = $query->paginate(25)->withQueryString();
         
         $counts = [
             'semua' => PpdbRegistrant::count(),
             'prestasi' => PpdbRegistrant::where('jalur', 'prestasi')->count(),
             'reguler' => PpdbRegistrant::where('jalur', 'reguler')->count(),
+            'pending' => PpdbRegistrant::where('status', 'pending')->count(),
+            'verified' => PpdbRegistrant::where('status', 'verified')->count(),
+            'accepted' => PpdbRegistrant::where('status', 'accepted')->count(),
         ];
+
+        $availableYears = PpdbRegistrant::selectRaw('YEAR(created_at) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
         
-        return view('admin.ppdb.registrants.index', compact('registrants', 'counts', 'jalur'));
+        return view('admin.ppdb.registrants.index', compact('registrants', 'counts', 'jalur', 'availableYears', 'tahun', 'search'));
     }
 
     public function export(Request $request)
     {
         $jalur = $request->query('jalur');
-        $filename = 'Data_Pendaftar_PPDB_' . ($jalur ? ucfirst($jalur) . '_' : '') . date('Ymd_His') . '.xlsx';
+        $tahun = $request->query('tahun');
+        $filename = 'Data_Pendaftar_PPDB_' . ($jalur ? ucfirst($jalur) . '_' : '') . ($tahun ? $tahun . '_' : '') . date('Ymd_His') . '.xlsx';
         
-        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\RegistrantsExport($jalur), $filename);
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\RegistrantsExport($jalur, $tahun), $filename);
     }
 
     public function showRegistrant(PpdbRegistrant $registrant)

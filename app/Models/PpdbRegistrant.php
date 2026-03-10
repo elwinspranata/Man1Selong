@@ -32,11 +32,17 @@ class PpdbRegistrant extends Authenticatable
         'submitted_at' => 'datetime',
     ];
 
-    public static function generateRegistrationNumber(): string
+    public static function generateRegistrationNumber(string $jalur = 'prestasi', ?int $year = null): string
     {
-        $year = date('Y');
-        $count = static::whereYear('created_at', $year)->count() + 1;
-        return 'PPDB-' . $year . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
+        $year = $year ?? (int) date('Y');
+        $shortYear = substr((string) $year, -2);
+        $jalurCode = strtolower($jalur) === 'prestasi' ? 'A' : 'B';
+
+        $count = static::whereYear('created_at', $year)
+            ->where('jalur', $jalur)
+            ->count() + 1;
+
+        return str_pad($count, 3, '0', STR_PAD_LEFT) . '/PNT-PPDB/' . $shortYear . '/' . $jalurCode;
     }
 
     public function getStatusLabelAttribute(): string

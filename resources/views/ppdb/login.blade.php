@@ -32,8 +32,8 @@
             <form action="{{ route('ppdb.login.submit') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
-                    <label class="ppdb-label">Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" class="ppdb-input" placeholder="contoh@email.com" required autofocus>
+                    <label class="ppdb-label">Email / NISN</label>
+                    <input type="text" name="login" value="{{ old('login') }}" class="ppdb-input" placeholder="Masukkan Email atau NISN" required autofocus>
                 </div>
                 <div>
                     <label class="ppdb-label">Password</label>

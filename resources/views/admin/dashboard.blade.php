@@ -4,6 +4,25 @@
 @section('page_title', 'Ringkasan Dashboard')
 
 @section('content')
+<div class="bg-emerald-700 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl mb-8">
+    <div class="relative z-10 w-full lg:w-2/3">
+        <h3 class="text-4xl font-black tracking-tighter mb-4">Selamat datang kembali!</h3>
+        <p class="text-emerald-100 font-medium text-lg leading-relaxed mb-8">
+            Halaman admin ini sedang dalam proses migrasi kustom. Anda sekarang memiliki kontrol penuh atas setiap baris kode di portal ini.
+        </p>
+        <div class="flex gap-4">
+            <div class="px-6 py-3 bg-white text-emerald-800 font-black rounded-2xl shadow-xl transition-all hover:-translate-y-1">
+                Pelajari Fitur Kustom
+            </div>
+        </div>
+    </div>
+    <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-1/4 translate-y-1/4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-96 h-96" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L1 21h22L12 2zm0 3.83L18.42 19H5.58L12 5.83z" />
+        </svg>
+    </div>
+</div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Stat Cards -->
     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 group hover:border-emerald-500 transition-all duration-300">
@@ -152,25 +171,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="mt-10 bg-emerald-700 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl">
-    <div class="relative z-10 w-full lg:w-2/3">
-        <h3 class="text-4xl font-black tracking-tighter mb-4">Selamat datang kembali!</h3>
-        <p class="text-emerald-100 font-medium text-lg leading-relaxed mb-8">
-            Halaman admin ini sedang dalam proses migrasi kustom. Anda sekarang memiliki kontrol penuh atas setiap baris kode di portal ini.
-        </p>
-        <div class="flex gap-4">
-            <div class="px-6 py-3 bg-white text-emerald-800 font-black rounded-2xl shadow-xl transition-all hover:-translate-y-1">
-                Pelajari Fitur Kustom
-            </div>
-        </div>
-    </div>
-    <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-1/4 translate-y-1/4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-96 h-96" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L1 21h22L12 2zm0 3.83L18.42 19H5.58L12 5.83z" />
-        </svg>
     </div>
 </div>
 @endsection
