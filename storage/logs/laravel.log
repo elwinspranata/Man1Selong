@@ -517,3 +517,31 @@
 #2 D:/laragon/www/man1selong/check_reg_format.php(28): fopen('routes/database...', 'r')
 #3 {main}
 "} 
+[2026-03-11 09:48:10] local.ERROR: The command "D:\laragon\bin\php\php-8.3.17-Win32-vs16-x64\php.exe -S 127.0.0.1:8000 D:\laragon\www\man1selong\vendor\laravel\framework\src\Illuminate\Foundation\Console/../resources/server.php" failed.
+
+Working directory: D:\laragon\www\man1selong\public
+
+Error: proc_open(NUL): Failed to open stream: No such file or directory {"exception":"[object] (Symfony\\Component\\Process\\Exception\\ProcessStartFailedException(code: 0): The command \"D:\\laragon\\bin\\php\\php-8.3.17-Win32-vs16-x64\\php.exe -S 127.0.0.1:8000 D:\\laragon\\www\\man1selong\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console/../resources/server.php\" failed.
+
+Working directory: D:\\laragon\\www\\man1selong\\public
+
+Error: proc_open(NUL): Failed to open stream: No such file or directory at D:/laragon/www/man1selong/vendor/symfony/process/Process.php:387)
+[stacktrace]
+#0 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Foundation/Console/ServeCommand.php(199): Symfony/Component/Process/Process->start(Object(Closure))
+#1 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Foundation/Console/ServeCommand.php(138): Illuminate/Foundation/Console/ServeCommand->startProcess(true)
+#2 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/ServeCommand->handle()
+#3 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::Illuminate/Container/{closure}()
+#4 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#5 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#6 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#7 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate/Container/Container->call(Array)
+#8 D:/laragon/www/man1selong/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#9 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#10 D:/laragon/www/man1selong/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#11 D:/laragon/www/man1selong/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/ServeCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#12 D:/laragon/www/man1selong/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#13 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#14 D:/laragon/www/man1selong/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#15 D:/laragon/www/man1selong/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#16 {main}
+"} 
